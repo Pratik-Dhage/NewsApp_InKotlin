@@ -18,9 +18,9 @@ import com.example.newsappinkotlin.home.view_model.HomeViewModel as HomeViewMode
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    lateinit var view : View
     private lateinit var viewModel: HomeViewModel
     var isSwipeRefreshing : Boolean = false
-    var view : View = binding as View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
     private fun initializeFields() {
 
         binding = DataBindingUtil.setContentView(this@HomeActivity, R.layout.activity_home)
+        view = binding.root //for snackBar
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         binding.viewModel = viewModel
         setUpRecyclerViewData()

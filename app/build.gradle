@@ -52,12 +52,12 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
 
-    //Snack bar
-    implementation 'com.github.egek92:ProteinBar:1.4'
+    //Snack bar with Protein bar
+  //  implementation 'com.github.egek92:ProteinBar:1.4'
     implementation 'com.google.android.material:material:1.6.1'
 
     //expandable layout
-    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+  //  implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
     //Retrofit & RxJava
     implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
