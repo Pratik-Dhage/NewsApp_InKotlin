@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="title_text_size">@dimen/_15ssp</dimen>
+    <dimen name="subtitle_text_size">@dimen/_13ssp</dimen>
+    <dimen name="subtitle2_text_size">@dimen/_12ssp</dimen>
+    <dimen name="description_textSize">@dimen/_10ssp</dimen>
+
+</resources>
