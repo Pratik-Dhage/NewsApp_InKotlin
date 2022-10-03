@@ -2,17 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.newsappinkotlin.home.view_model.HomeViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:focusableInTouchMode="false">
+    <!-- <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+         android:id="@+id/swipeRefreshLayout"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:background="@color/white"
+         android:focusableInTouchMode="false">-->
 
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,19 +23,16 @@
         tools:context=".home.HomeActivity">
 
 
-
-
-
         <TextView
             android:id="@+id/txtView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_20sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="@dimen/_10ssp"
             android:layout_marginStart="@dimen/_5sdp"
-           android:text="@string/app_name" />
+            android:text="@string/app_name"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <!--<androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,10 +46,22 @@
             tools:itemCount="5"
             android:orientation="vertical"
             tools:listitem="@layout/lv_item_news" />
-
+-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            tools:itemCount="5"
+            android:visibility="visible"
+            tools:listitem="@layout/lv_item_news"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <!-- </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
 
 </layout>

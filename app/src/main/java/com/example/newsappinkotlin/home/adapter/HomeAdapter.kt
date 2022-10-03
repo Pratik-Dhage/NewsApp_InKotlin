@@ -34,12 +34,12 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
        Glide.with(context).load(a.urlToImage).into(holder.binding.imgNews)
     }
 
-    override fun getItemCount(): Int = if (arrData.isNullOrEmpty()) 0 else arrData.size
+    override fun getItemCount(): Int = if (arrData.isEmpty()) 0 else arrData.size
 
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data: ArrayList<Article>) {
-        if (data.isNullOrEmpty()) {
+        if (data.isEmpty()) {
             arrData = ArrayList()
         }
         arrData = data

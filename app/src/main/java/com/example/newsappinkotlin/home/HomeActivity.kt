@@ -18,9 +18,9 @@ import com.example.newsappinkotlin.home.view_model.HomeViewModel as HomeViewMode
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    lateinit var view : View
+    lateinit var view: View
     private lateinit var viewModel: HomeViewModel
-    var isSwipeRefreshing : Boolean = false
+    var isSwipeRefreshing: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,9 @@ class HomeActivity : AppCompatActivity() {
         initializeFields()
         initObserver()
         callHomeNewsApi()
+        setUpRecyclerViewData()
+        onClickListeners()
+
     }
 
     private fun initializeFields() {
@@ -36,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
         view = binding.root //for snackBar
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         binding.viewModel = viewModel
-        setUpRecyclerViewData()
 
 
     }
@@ -46,11 +48,12 @@ class HomeActivity : AppCompatActivity() {
         //Home News Api Response
         viewModel.mutHomeResponseApi.observe(this@HomeActivity) {
 
-
             if (it.status == "ok") {
+                Global.showSnackBar(view,"All Good")
                 // swipeRefresher()
                 //  viewModel.arrListData.clear()  // first clear the arrListData
                 if (it.totalResults > 0) {
+                    Global.showSnackBar(view,""+it.totalResults.toString())
                     viewModel.arrListData.addAll(it.articles)
                 }
             }
@@ -60,21 +63,28 @@ class HomeActivity : AppCompatActivity() {
         // Api Error Handler
         viewModel.mutErrorResponse.observe(this@HomeActivity) {
             if (!it.isNullOrEmpty()) {
-                Global.showToast(this@HomeActivity, it.toString())
+                Global.showSnackBar(view, it.toString())
             } else {
-                Global.showToast(this, resources.getString(R.string.connection_error))
+                Global.showSnackBar(view, resources.getString(R.string.connection_error))
             }
         }
     }
 
     private fun swipeRefresher() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            callHomeNewsApi()
+        //  binding.swipeRefreshLayout.setOnRefreshListener {
+        callHomeNewsApi()
+    }
+
+    private fun onClickListeners(){
+        binding.recyclerViewMain.setOnClickListener {
+          //  Global.showSnackBar(view,"Clicked")
+            Global.showToast(this,"Clicked")
         }
     }
 
     private fun setUpRecyclerViewData() {
         val layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewMain.isVisible = true
         binding.recyclerViewMain.layoutManager = layoutManager
         binding.recyclerViewMain.adapter = HomeAdapter()
         viewModel.updateNewsData()
@@ -84,7 +94,6 @@ class HomeActivity : AppCompatActivity() {
         if (NetworkUtilities.getConnectivityStatus(this@HomeActivity)) {
             viewModel.getHomeNewsData(this@HomeActivity)
         } else
-          //  Global.showToast(this, resources.getString(R.string.no_internet))
-        Global.showSnackBar(view,resources.getString(R.string.no_internet))
+            Global.showSnackBar(view, resources.getString(R.string.no_internet))
     }
 }
