@@ -5,5 +5,13 @@
     <dimen name="subtitle_text_size">@dimen/_13ssp</dimen>
     <dimen name="subtitle2_text_size">@dimen/_12ssp</dimen>
     <dimen name="description_textSize">@dimen/_10ssp</dimen>
+    <dimen name="big_textSize">@dimen/_30ssp</dimen>
+    <dimen name="medium_textSize">@dimen/_20ssp</dimen>
+
+    <!--Edit text -->
+    <dimen name="editText_height">@dimen/_40sdp</dimen>
+    <dimen name="editText_width">@dimen/_60sdp</dimen>
+
+
 
 </resources>
