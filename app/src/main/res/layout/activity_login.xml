@@ -75,6 +75,7 @@
                     app:layout_constraintTop_toBottomOf="@id/edtPass" />
 
                 <TextView
+                    android:id="@+id/txtRememberMe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -104,7 +105,7 @@
                     app:layout_constraintTop_toBottomOf="@id/imgCheckBox" />
 
                 <TextView
-                    android:id="@+id/LabelDontHave"
+                    android:id="@+id/txtAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
@@ -116,6 +117,7 @@
                     app:layout_constraintTop_toBottomOf="@id/btnSignIn" />
 
                 <TextView
+                    android:id="@+id/txtSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -124,7 +126,7 @@
                     android:textColor="@color/button_bg_color"
                     android:textSize="@dimen/subtitle2_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/LabelDontHave"
+                    app:layout_constraintStart_toEndOf="@id/txtAccount"
                     app:layout_constraintTop_toBottomOf="@id/btnSignIn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

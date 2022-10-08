@@ -59,6 +59,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/bg_edit_text"
                     android:hint="@string/password"
+                    android:maxLength="6"
                     android:inputType="textPassword"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +70,7 @@
                     style="@style/CommonEditTextStyle"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/bg_edit_text"
-                    android:hint="@string/email"
+                    android:hint="@string/mobile_number"
                     android:inputType="phone"
                     android:digits="1234567890"
                     android:maxLength="10"
@@ -95,11 +96,12 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/subtitle2_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/btnSignUp"
+                    android:layout_marginStart="@dimen/_40sdp"
                     app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
 
                 <TextView
+                    android:id="@+id/txtSignIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"

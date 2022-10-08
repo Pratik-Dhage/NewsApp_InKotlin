@@ -2,6 +2,8 @@ package com.example.newsappinkotlin.helping_classes
 
 import android.content.Context
 import android.text.Layout
+import android.text.TextUtils
+import android.util.Patterns
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
@@ -23,8 +25,16 @@ object Global {
     }
 
     fun showSnackBar(view: View, str : String){
-
         val snackBar : Snackbar = Snackbar.make(view,str,Snackbar.LENGTH_SHORT)
         snackBar.show()
     }
+
+    fun isValidEmail(target: CharSequence): Boolean =
+        !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+
+    fun isValidCellPhone(number: String?): Boolean =
+        Patterns.PHONE.matcher(number.toString()).matches()
+
+
+
 }
