@@ -74,6 +74,18 @@
                     app:layout_constraintStart_toStartOf="@id/edtPass"
                     app:layout_constraintTop_toBottomOf="@id/edtPass" />
 
+                <!--This is another way of CheckBox Selected -->
+                <ImageView
+                    android:id="@+id/imgCheckBox2"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"
+                    android:background="@drawable/ic_tick_selected_checkbox"
+                    app:layout_constraintStart_toStartOf="@id/edtPass"
+                    app:layout_constraintTop_toBottomOf="@id/edtPass" />
+
+
                 <TextView
                     android:id="@+id/txtRememberMe"
                     android:layout_width="wrap_content"

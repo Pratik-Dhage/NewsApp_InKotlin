@@ -29,7 +29,7 @@ object Global {
         snackBar.show()
     }
 
-    fun isValidEmail(target: CharSequence): Boolean =
+    fun isValidEmail(target: String): Boolean =
         !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
 
     fun isValidCellPhone(number: String?): Boolean =

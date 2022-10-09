@@ -11,6 +11,7 @@ import com.example.newsappinkotlin.R
 import com.example.newsappinkotlin.databinding.ActivityRegisterBinding
 import com.example.newsappinkotlin.helping_classes.Global
 import com.example.newsappinkotlin.helping_classes.NetworkUtilities
+import com.example.newsappinkotlin.helping_classes.SharedPreferenceHelper
 import com.example.newsappinkotlin.home.HomeActivity
 import com.example.newsappinkotlin.login.LoginActivity
 import com.example.newsappinkotlin.register.view_model.RegisterViewModel
@@ -90,7 +91,11 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
-      else  return true
+      else {
+            SharedPreferenceHelper.writeString(this,"userEmail",email)
+            SharedPreferenceHelper.writeString(this,"userPassword",password)
+
+            return true }
     }
 
     private fun onRegisterApi(){
