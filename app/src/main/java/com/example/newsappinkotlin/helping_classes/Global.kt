@@ -1,6 +1,8 @@
 package com.example.newsappinkotlin.helping_classes
 
+import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.text.Layout
 import android.text.TextUtils
 import android.util.Patterns
@@ -36,5 +38,19 @@ object Global {
         Patterns.PHONE.matcher(number.toString()).matches()
 
 
+    fun saveStringInSharedPref(context: Context, key: String, value: String) {
+        SharedPreferenceHelper.writeString(context, key, value)
+    }
 
+    fun getStringFromSharedPref(context: Context, key: String): String {
+        return SharedPreferenceHelper.getString(context, key, "") ?: ""
+    }
+
+    fun removeStringInSharedPref(context: Context, key: String) {
+        SharedPreferenceHelper.writeString(context, key, "")
+    }
+
+    fun getLanguage(activity: Activity): String {
+        return getStringFromSharedPref(activity, Constants.PREFS_APP_LANG)
+    }
 }

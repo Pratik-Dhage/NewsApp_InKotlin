@@ -3,6 +3,8 @@ package com.example.newsappinkotlin.api_manager
 //import com.squareup.okhttp.OkHttpClient
 //import okhttp3.logging.HttpLoggingInterceptor
 import com.example.newsappinkotlin.home.HomeResponse
+import com.example.newsappinkotlin.login.model.LoginRequestModel
+import com.example.newsappinkotlin.login.model.LoginResponseModel
 import com.google.gson.GsonBuilder
 import com.squareup.okhttp.OkHttpClient
 import io.reactivex.Observable
@@ -22,6 +24,10 @@ interface RestClient {
 
     @GET
      fun homeNewsApi (@Url url : String) : Observable<HomeResponse>
+
+     //eval
+    @POST
+    fun loginUserApi(@Url url: String, @Body model: LoginRequestModel): Observable<LoginResponseModel?>
 
 
     companion object {

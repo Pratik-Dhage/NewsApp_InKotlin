@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.newsappinkotlin.R
 import com.example.newsappinkotlin.databinding.ActivityRegisterBinding
 import com.example.newsappinkotlin.helping_classes.Global
+import com.example.newsappinkotlin.helping_classes.Global.saveStringInSharedPref
 import com.example.newsappinkotlin.helping_classes.NetworkUtilities
 import com.example.newsappinkotlin.helping_classes.SharedPreferenceHelper
 import com.example.newsappinkotlin.home.HomeActivity
@@ -92,9 +93,8 @@ class RegisterActivity : AppCompatActivity() {
         }
 
       else {
-            SharedPreferenceHelper.writeString(this,"userEmail",email)
-            SharedPreferenceHelper.writeString(this,"userPassword",password)
-
+          //  saveStringInSharedPref(this,"email",email)
+         //   saveStringInSharedPref(this,"pass",password)
             return true }
     }
 

@@ -63,6 +63,11 @@ dependencies {
     //expandable layout
   //  implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
+    //Navigation graph
+    def nav_version_ktx = "2.4.0-alpha03"    //noinspection GradleDependency
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version_ktx"    //noinspection GradleDependency
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version_ktx"
+
     //Retrofit & RxJava
     implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

@@ -1,6 +1,7 @@
 package com.example.newsappinkotlin.home.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -14,6 +15,8 @@ import com.example.newsappinkotlin.home.Article
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
     private var arrData :  ArrayList<Article> = ArrayList()
+    var context: Context? = null
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

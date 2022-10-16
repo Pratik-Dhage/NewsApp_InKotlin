@@ -16,6 +16,12 @@ object SharedPreferenceHelper {
             return true
     }
 
+    fun getString(context: Context, key: String, defaultValue: String): String? {
+        return if (context == null) {
+            defaultValue
+        } else getSharedPreferences(context)?.getString(key, defaultValue)
+    }
+
     private fun getSharedPreferencesEditor(context: Context): SharedPreferences.Editor? {
 
         return if (context == null) {

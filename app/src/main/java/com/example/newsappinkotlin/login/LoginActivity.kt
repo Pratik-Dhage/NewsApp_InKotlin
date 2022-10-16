@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.newsappinkotlin.R
 import com.example.newsappinkotlin.databinding.ActivityLoginBinding
 import com.example.newsappinkotlin.databinding.ActivityRegisterBinding
@@ -14,12 +15,14 @@ import com.example.newsappinkotlin.helping_classes.Global
 import com.example.newsappinkotlin.helping_classes.NetworkUtilities
 import com.example.newsappinkotlin.helping_classes.SharedPreferenceHelper
 import com.example.newsappinkotlin.home.HomeActivity
+import com.example.newsappinkotlin.login.view_model.LoginViewModel
 import com.example.newsappinkotlin.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityLoginBinding
     private lateinit var  view : View
+    private lateinit var  viewModel : LoginViewModel
     private var isUserLoggedIn : Boolean = false
 
 
@@ -60,13 +63,11 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.btnSignIn.setOnClickListener {
-
-           if( validations() )
-           {
+            if( validations() ) {
                if(NetworkUtilities.getConnectivityStatus(this)){
-                   val i = Intent(this, HomeActivity::class.java)
+                 /*  val i = Intent(this, HomeActivity::class.java)
                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                   startActivity(i)
+                   startActivity(i)*/
                }
                else{
                    Global.showSnackBar(view,resources.getString(R.string.no_internet))
@@ -93,9 +94,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         else
-            SharedPreferenceHelper.writeString(this,"userEmail",email)
-            SharedPreferenceHelper.writeString(this,"userPassword",password)
 
+                callLoginApi()
         return true
 
     }
@@ -103,28 +103,20 @@ class LoginActivity : AppCompatActivity() {
     private fun initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         view= binding.root
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+    }
 
-        val userEmail = getSharedPreferences("userEmail", Context.MODE_PRIVATE)
-        val userPassword = getSharedPreferences("userPassword", Context.MODE_PRIVATE)
-
-        if( userEmail!=null &&  userPassword!=null)
-        {
-            if(NetworkUtilities.getConnectivityStatus(this)){
-                val i = Intent(this, HomeActivity::class.java)
-                i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(i)
-            }
-            else{
-                Global.showSnackBar(view,resources.getString(R.string.no_internet))
-            }
+    private fun callLoginApi() {
+        if (NetworkUtilities.getConnectivityStatus(this@LoginActivity)) {
+            viewModel.loginUserApi(this)
+        } else {
+            Global.showSnackBar(view, resources.getString(R.string.no_internet))
         }
     }
 
 
-
-
     override fun onBackPressed() {
-        super.onBackPressed()
+      //  super.onBackPressed()
     }
 
 }

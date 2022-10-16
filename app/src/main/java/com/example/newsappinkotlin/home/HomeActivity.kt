@@ -1,5 +1,8 @@
 package com.example.newsappinkotlin.home
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,7 +15,9 @@ import com.example.newsappinkotlin.R
 import com.example.newsappinkotlin.databinding.ActivityHomeBinding
 import com.example.newsappinkotlin.helping_classes.Global
 import com.example.newsappinkotlin.helping_classes.NetworkUtilities
+import com.example.newsappinkotlin.helping_classes.SharedPreferenceHelper
 import com.example.newsappinkotlin.home.adapter.HomeAdapter
+import com.example.newsappinkotlin.login.LoginActivity
 import com.example.newsappinkotlin.home.view_model.HomeViewModel as HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -21,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var view: View
     private lateinit var viewModel: HomeViewModel
     var isSwipeRefreshing: Boolean = false
+   
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +61,7 @@ class HomeActivity : AppCompatActivity() {
                 if (it.totalResults > 0) {
                     Global.showSnackBar(view,""+it.totalResults.toString())
                     viewModel.arrListData.addAll(it.articles)
+                    setUpRecyclerViewData()
                 }
             }
 
@@ -80,14 +87,27 @@ class HomeActivity : AppCompatActivity() {
           //  Global.showSnackBar(view,"Clicked")
             Global.showToast(this,"Clicked")
         }
+
+        binding.txtLogout.setOnClickListener {
+            if(intent.hasExtra("userEmail") && intent.hasExtra("userPassword") ){
+
+                SharedPreferenceHelper.writeString(this,"userEmail","")
+                SharedPreferenceHelper.writeString(this,"userPassword","")
+
+                val i = Intent(this, LoginActivity::class.java)
+                startActivity(i)
+            }
+        }
+
     }
 
     private fun setUpRecyclerViewData() {
+        viewModel.updateNewsData()
         val layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewMain.isVisible = true
         binding.recyclerViewMain.layoutManager = layoutManager
         binding.recyclerViewMain.adapter = HomeAdapter()
-        viewModel.updateNewsData()
+
     }
 
     private fun callHomeNewsApi() {
@@ -95,5 +115,9 @@ class HomeActivity : AppCompatActivity() {
             viewModel.getHomeNewsData(this@HomeActivity)
         } else
             Global.showSnackBar(view, resources.getString(R.string.no_internet))
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
     }
 }

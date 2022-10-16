@@ -2,6 +2,13 @@
 
 <layout>
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.newsappinkotlin.login.view_model.LoginViewModel" />
+        
+    </data>
+    
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
