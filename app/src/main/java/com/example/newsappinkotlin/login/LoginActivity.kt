@@ -15,6 +15,7 @@ import com.example.newsappinkotlin.helping_classes.Global
 import com.example.newsappinkotlin.helping_classes.NetworkUtilities
 import com.example.newsappinkotlin.helping_classes.SharedPreferenceHelper
 import com.example.newsappinkotlin.home.HomeActivity
+import com.example.newsappinkotlin.home2.MainActivity
 import com.example.newsappinkotlin.login.view_model.LoginViewModel
 import com.example.newsappinkotlin.register.RegisterActivity
 
@@ -65,9 +66,9 @@ class LoginActivity : AppCompatActivity() {
         binding.btnSignIn.setOnClickListener {
             if( validations() ) {
                if(NetworkUtilities.getConnectivityStatus(this)){
-                 /*  val i = Intent(this, HomeActivity::class.java)
+                   val i = Intent(this, MainActivity::class.java)
                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                   startActivity(i)*/
+                   startActivity(i)
                }
                else{
                    Global.showSnackBar(view,resources.getString(R.string.no_internet))

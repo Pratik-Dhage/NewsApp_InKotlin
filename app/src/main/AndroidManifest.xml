@@ -17,6 +17,9 @@
         android:theme="@style/Theme.NewsAppInKotlin"
         tools:targetApi="31">
         <activity
+            android:name=".home2.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".register.RegisterActivity"
             android:exported="true">
 
