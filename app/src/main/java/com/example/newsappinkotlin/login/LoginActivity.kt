@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
             if( validations() ) {
                if(NetworkUtilities.getConnectivityStatus(this)){
                    val i = Intent(this, MainActivity::class.java)
-                   i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                 //  i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                    startActivity(i)
                }
                else{

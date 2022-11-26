@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />-->
 
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/fragmentContainerView"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"

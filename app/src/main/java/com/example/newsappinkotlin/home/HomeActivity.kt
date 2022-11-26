@@ -1,24 +1,22 @@
 package com.example.newsappinkotlin.home
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.newsappinkotlin.R
 import com.example.newsappinkotlin.databinding.ActivityHomeBinding
 import com.example.newsappinkotlin.helping_classes.Global
 import com.example.newsappinkotlin.helping_classes.NetworkUtilities
 import com.example.newsappinkotlin.helping_classes.SharedPreferenceHelper
 import com.example.newsappinkotlin.home.adapter.HomeAdapter
+import com.example.newsappinkotlin.home.view_model.HomeViewModel
 import com.example.newsappinkotlin.login.LoginActivity
-import com.example.newsappinkotlin.home.view_model.HomeViewModel as HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,15 +24,17 @@ class HomeActivity : AppCompatActivity() {
     lateinit var view: View
     private lateinit var viewModel: HomeViewModel
     var isSwipeRefreshing: Boolean = false
+    private lateinit var list : ArrayList<Article>
    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initializeFields()
-        initObserver()
-        callHomeNewsApi()
         setUpRecyclerViewData()
+        initObserver()
+
+        callHomeNewsApi()
         onClickListeners()
 
     }
@@ -54,14 +54,24 @@ class HomeActivity : AppCompatActivity() {
         //Home News Api Response
         viewModel.mutHomeResponseApi.observe(this@HomeActivity) {
 
+            Global.showToast(this,it.status)
+
             if (it.status == "ok") {
-                Global.showSnackBar(view,"All Good")
+                list.addAll(it.articles)
+                Global.showToast(this,"All Good")
                 // swipeRefresher()
                 //  viewModel.arrListData.clear()  // first clear the arrListData
                 if (it.totalResults > 0) {
                     Global.showSnackBar(view,""+it.totalResults.toString())
                     viewModel.arrListData.addAll(it.articles)
-                    setUpRecyclerViewData()
+                    list.addAll(it.articles)
+
+                    //setup Recyclerview
+
+                    val recyclerView = binding.recyclerViewMain
+                    viewModel.updateNewsData()
+                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    recyclerView.adapter = HomeAdapter(list)
                 }
             }
 
@@ -71,6 +81,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.mutErrorResponse.observe(this@HomeActivity) {
             if (!it.isNullOrEmpty()) {
                 Global.showSnackBar(view, it.toString())
+                println("Here:+"+it.toString())
             } else {
                 Global.showSnackBar(view, resources.getString(R.string.connection_error))
             }
@@ -102,11 +113,15 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerViewData() {
+
+        list = arrayListOf<Article>()
+
+        val recyclerView = binding.recyclerViewMain
         viewModel.updateNewsData()
-        val layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
         binding.recyclerViewMain.isVisible = true
-        binding.recyclerViewMain.layoutManager = layoutManager
-        binding.recyclerViewMain.adapter = HomeAdapter()
+        recyclerView.layoutManager = layoutManager
+       recyclerView.adapter = HomeAdapter(list)
 
     }
 

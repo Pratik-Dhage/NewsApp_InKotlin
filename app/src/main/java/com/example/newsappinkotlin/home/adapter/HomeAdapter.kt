@@ -12,9 +12,9 @@ import com.example.newsappinkotlin.databinding.LvItemNewsBinding
 import com.example.newsappinkotlin.home.Article
 
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
+class HomeAdapter ( private var arrData :  ArrayList<Article>): RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
 
-    private var arrData :  ArrayList<Article> = ArrayList()
+
     var context: Context? = null
 
 

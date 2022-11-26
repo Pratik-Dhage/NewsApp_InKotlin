@@ -18,7 +18,7 @@ val mutHomeResponseApi : MutableLiveData<HomeResponse> = MutableLiveData()
 val mutErrorResponse : MutableLiveData<String> = MutableLiveData()
 
 var arrListData = ArrayList<Article>()
-var adapterHome : HomeAdapter = HomeAdapter()
+var adapterHome : HomeAdapter = HomeAdapter(arrListData)
 fun updateNewsData(){
     adapterHome.setData(arrListData)
 }
@@ -34,7 +34,7 @@ fun updateNewsData(){
              .subscribe({ result -> onHomeApiSuccess(result) },
                  { error -> onApiError(error) })
 
-     println("Here: @GET "+WebServices.Domain+WebServices.about_tesla+WebServices.api_key)
+   //  println("Here: @GET "+WebServices.Domain+WebServices.about_tesla+WebServices.api_key)
  }
 
    private fun onHomeApiSuccess(result : HomeResponse){

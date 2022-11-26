@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
+@Suppress("DEPRECATION")
 object NetworkUtilities {
     private var result = false
     fun getConnectivityStatus(context: Context): Boolean {

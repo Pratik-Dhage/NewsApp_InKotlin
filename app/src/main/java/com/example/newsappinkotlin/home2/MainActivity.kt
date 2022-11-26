@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsappinkotlin.R
+import com.example.newsappinkotlin.account.AccountFragment
 import com.example.newsappinkotlin.databinding.ActivityMainBinding
+import com.example.newsappinkotlin.home.fragment.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         initializeFields()
         setUpBottomNavigation()
@@ -42,16 +44,26 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
+        val appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(
+                R.id.nav_home,
+                R.id.nav_account,
+                ), fallbackOnNavigateUpListener = ::onSupportNavigateUp
+        )
+
+
         bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
 
             R.id.nav_home->{
-
+                HomeFragment()
                           }
                 R.id.nav_account->{
-
+                AccountFragment()
                 }
 
             }
