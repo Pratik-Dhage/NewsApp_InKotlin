@@ -27,7 +27,7 @@ fun updateNewsData(){
  //Home News Api
 
  fun getHomeNewsData(context : Activity){
-     subscription = Global.api_Service.homeNewsApi(WebServices.about_tesla+WebServices.api_key)
+     subscription = Global.api_Service.homeNewsApi(WebServices.top_headlines+WebServices.country_india+WebServices.api_key)
              .subscribeOn(Schedulers.io())
              .observeOn(AndroidSchedulers.mainThread())
              .unsubscribeOn(Schedulers.io())

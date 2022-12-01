@@ -58,11 +58,10 @@ class HomeActivity : AppCompatActivity() {
 
             if (it.status == "ok") {
                 list.addAll(it.articles)
-                Global.showToast(this,"All Good")
-                // swipeRefresher()
-                //  viewModel.arrListData.clear()  // first clear the arrListData
+              //  Global.showToast(this,resources.getString(R.string.loading))
+
                 if (it.totalResults > 0) {
-                    Global.showSnackBar(view,""+it.totalResults.toString())
+                    Global.showSnackBar(view,resources.getString(R.string.loading))
                     viewModel.arrListData.addAll(it.articles)
                     list.addAll(it.articles)
 
@@ -99,7 +98,7 @@ class HomeActivity : AppCompatActivity() {
             Global.showToast(this,"Clicked")
         }
 
-        binding.txtLogout.setOnClickListener {
+       /* binding.txtLogout.setOnClickListener {
             if(intent.hasExtra("userEmail") && intent.hasExtra("userPassword") ){
 
                 SharedPreferenceHelper.writeString(this,"userEmail","")
@@ -108,7 +107,7 @@ class HomeActivity : AppCompatActivity() {
                 val i = Intent(this, LoginActivity::class.java)
                 startActivity(i)
             }
-        }
+        }*/
 
     }
 
