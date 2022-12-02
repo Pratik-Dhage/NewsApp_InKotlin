@@ -34,8 +34,30 @@ fun updateNewsData(){
              .subscribe({ result -> onHomeApiSuccess(result) },
                  { error -> onApiError(error) })
 
-   //  println("Here: @GET "+WebServices.Domain+WebServices.about_tesla+WebServices.api_key)
  }
+
+  //for left Navigation view
+  fun getDifferentCountryNewsData(context : Activity,country:String){
+
+      if(country == "us"){
+          subscription = Global.api_Service.homeNewsApi(WebServices.top_headlines+WebServices.country_us+WebServices.api_key)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .unsubscribeOn(Schedulers.io())
+              .subscribe({ result -> onHomeApiSuccess(result) },
+                  { error -> onApiError(error) })
+      }
+      if(country == "ua"){
+          subscription = Global.api_Service.homeNewsApi(WebServices.top_headlines+WebServices.country_ua+WebServices.api_key)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .unsubscribeOn(Schedulers.io())
+              .subscribe({ result -> onHomeApiSuccess(result) },
+                  { error -> onApiError(error) })
+      }
+
+  }
+
 
    private fun onHomeApiSuccess(result : HomeResponse){
       mutHomeResponseApi.value = result

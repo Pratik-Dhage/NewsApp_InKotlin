@@ -2,6 +2,7 @@ package com.example.newsappinkotlin.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -122,6 +123,37 @@ class HomeActivity : AppCompatActivity() {
         } else
             Global.showSnackBar(view, resources.getString(R.string.no_internet))
     }
+
+
+ /*     private fun onMenuClick(){
+
+          binding.leftNavView.setNavigationItemSelectedListener{
+
+              when(it.itemId){
+
+                    R.id.nav_us->{
+                        val country = "us"
+                        viewModel.getDifferentCountryNewsData(this,country)
+
+                        true
+                    }
+
+                  R.id.nav_ua->{
+                      val country = "ua"
+                      viewModel.getDifferentCountryNewsData(this,country)
+                      true
+                  }
+
+                  else-> false
+              }
+
+
+          }
+
+      }*/
+
+
+
 
     override fun onBackPressed() {
         //super.onBackPressed()

@@ -11,6 +11,7 @@ object WebServices {
     const val top_headlines = "top-headlines?"
     const val country_india = "country=in"
     const val country_us = "country=us"
+    const val country_ua = "country=ua"
 
 
     var DOMAIN = "https://eval.nabra-kwt.com/api/v1/"  //eval
