@@ -26,7 +26,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/register"
                     android:textSize="@dimen/big_textSize"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/already_have_account"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/subtitle2_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/btnSignUp"
