@@ -7,6 +7,8 @@ import android.view.View
 import androidx.core.view.ContentInfoCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.newsappinkotlin.R
 import com.example.newsappinkotlin.databinding.ActivityRegisterBinding
 import com.example.newsappinkotlin.helping_classes.Global
@@ -16,12 +18,18 @@ import com.example.newsappinkotlin.helping_classes.SharedPreferenceHelper
 import com.example.newsappinkotlin.home.HomeActivity
 import com.example.newsappinkotlin.login.LoginActivity
 import com.example.newsappinkotlin.register.view_model.RegisterViewModel
+import com.example.newsappinkotlin.users.UserDao
+import com.example.newsappinkotlin.users.UserDatabase
+import com.example.newsappinkotlin.users.UserTable
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityRegisterBinding
     private lateinit var  view : View
     private lateinit var viewModel : RegisterViewModel
+    private lateinit var userDB : UserDatabase
+    private lateinit var userDao : UserDao
+    var isAllowed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,21 +48,35 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnSignUp.setOnClickListener {
           if(validations()) {
 
-              if(NetworkUtilities.getConnectivityStatus(this)){
+              //if validation is true then email and password will be added to UserTable
+              val email = binding.edtEmail.text.toString().trim()
+              val password = binding.edtPass.text.toString().trim()
+              if(!userDao.isTaken(email))
+              {
+                  val userTable  = UserTable(0,email,password)
+                  userDao.insertUser(userTable)
 
-                  onRegisterApi()
+                  Global.showSnackBar(view,resources.getString(R.string.user_added_successfully))
+              }
+              else{
+                  Global.showSnackBar(view,resources.getString(R.string.email_already_taken))
+              }
+
+             /* if(NetworkUtilities.getConnectivityStatus(this)){
+
+                //  onRegisterApi()
                   val i = Intent(this, HomeActivity::class.java)
                   i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                   startActivity(i)
               }
               else{
                   Global.showSnackBar(view,resources.getString(R.string.no_internet))
-              }
+              }*/
 
           }
-           /* else{
+            else{
               Global.showSnackBar(view,resources.getString(R.string.something_went_wrong_error))
-            }*/
+            }
 
            }
 
@@ -66,6 +88,12 @@ class RegisterActivity : AppCompatActivity() {
         view= binding.root
         viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
+        userDB = Room.databaseBuilder(this,UserDatabase::class.java,"userTable")
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+
+        userDao = userDB.getDao()
     }
 
     private fun validations() : Boolean{

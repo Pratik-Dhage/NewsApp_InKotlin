@@ -8,6 +8,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.newsappinkotlin.R
 import com.example.newsappinkotlin.databinding.ActivityLoginBinding
 import com.example.newsappinkotlin.databinding.ActivityRegisterBinding
@@ -18,13 +19,16 @@ import com.example.newsappinkotlin.home.HomeActivity
 import com.example.newsappinkotlin.home2.MainActivity
 import com.example.newsappinkotlin.login.view_model.LoginViewModel
 import com.example.newsappinkotlin.register.RegisterActivity
+import com.example.newsappinkotlin.users.UserDao
+import com.example.newsappinkotlin.users.UserDatabase
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityLoginBinding
     private lateinit var  view : View
     private lateinit var  viewModel : LoginViewModel
-    private var isUserLoggedIn : Boolean = false
+    private lateinit var userDao: UserDao
+    private lateinit var userDB : UserDatabase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,14 +69,31 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnSignIn.setOnClickListener {
             if( validations() ) {
-               if(NetworkUtilities.getConnectivityStatus(this)){
+
+                val email = binding.edtEmail.text.toString().trim()
+                val password = binding.edtPass.text.toString().trim()
+
+                if(!userDao.isLogin(email,password)){
+
+                    Global.showSnackBar(view,resources.getString(R.string.login_unsuccessfully))
+                }
+                else
+                {
+                    Global.showSnackBar(view,resources.getString(R.string.login_successfully))
+
+                    val i = Intent(this,HomeActivity::class.java)
+                    startActivity(i)
+
+                }
+
+               /*if(NetworkUtilities.getConnectivityStatus(this)){
                    val i = Intent(this, MainActivity::class.java)
                  //  i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                    startActivity(i)
                }
                else{
                    Global.showSnackBar(view,resources.getString(R.string.no_internet))
-               }
+               }*/
            }
 
         }
@@ -96,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
 
         else
 
-                callLoginApi()
+             //   callLoginApi()
         return true
 
     }
@@ -105,6 +126,15 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         view= binding.root
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+
+
+        userDB = Room.databaseBuilder(this, UserDatabase::class.java,"userTable")
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+
+        userDao = userDB.getDao()
+
     }
 
     private fun callLoginApi() {

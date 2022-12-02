@@ -17,6 +17,9 @@
         android:theme="@style/Theme.NewsAppInKotlin"
         tools:targetApi="31">
         <activity
+            android:name=".home.WebViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".home2.MainActivity"
             android:exported="false" />
         <activity
@@ -27,16 +30,16 @@
         <activity
             android:name=".login.LoginActivity"
             android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".home.HomeActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".home.HomeActivity"
+            android:exported="true">
+
         </activity>
     </application>
 

@@ -32,7 +32,10 @@ class HomeActivity : AppCompatActivity() {
 
         initializeFields()
         setUpRecyclerViewData()
-        initObserver()
+
+        if(NetworkUtilities.getConnectivityStatus(this))
+        {   initObserver() }
+        else { Global.showSnackBar(view,resources.getString(R.string.no_internet))      }
 
         callHomeNewsApi()
         onClickListeners()
@@ -54,7 +57,7 @@ class HomeActivity : AppCompatActivity() {
         //Home News Api Response
         viewModel.mutHomeResponseApi.observe(this@HomeActivity) {
 
-            Global.showToast(this,it.status)
+           // Global.showToast(this,it.status)
 
             if (it.status == "ok") {
                 list.addAll(it.articles)
@@ -93,20 +96,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun onClickListeners(){
-        binding.recyclerViewMain.setOnClickListener {
+       /* binding.recyclerViewMain.setOnClickListener {
           //  Global.showSnackBar(view,"Clicked")
             Global.showToast(this,"Clicked")
-        }
-
-       /* binding.txtLogout.setOnClickListener {
-            if(intent.hasExtra("userEmail") && intent.hasExtra("userPassword") ){
-
-                SharedPreferenceHelper.writeString(this,"userEmail","")
-                SharedPreferenceHelper.writeString(this,"userPassword","")
-
-                val i = Intent(this, LoginActivity::class.java)
-                startActivity(i)
-            }
         }*/
 
     }

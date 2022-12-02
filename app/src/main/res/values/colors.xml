@@ -14,8 +14,8 @@
     <color name="purple">#800080</color>
 
     <!--app colors-->
-    <color name="app_bg_color">#757AE6</color>
-    <color name="button_bg_color">#32D4DF</color>
+    <color name="app_bg_color">#D0D4E3</color>
+    <color name="button_bg_color">#E1372D</color>
     <color name="button_shadow_color">#27DCE8</color>
     <color name="editText_bg_color">#B0B1E2</color>
     <color name="editText_bg_color2">#CBCBFE</color>
