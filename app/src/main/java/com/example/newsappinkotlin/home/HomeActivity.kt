@@ -25,14 +25,13 @@ class HomeActivity : AppCompatActivity() {
     lateinit var view: View
     private lateinit var viewModel: HomeViewModel
     var isSwipeRefreshing: Boolean = false
-    private lateinit var list : ArrayList<Article>
+ //   private var list : ArrayList<Article> = arrayListOf<Article>()
    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initializeFields()
-        setUpRecyclerViewData()
 
         if(NetworkUtilities.getConnectivityStatus(this))
         {   initObserver() }
@@ -61,21 +60,17 @@ class HomeActivity : AppCompatActivity() {
            // Global.showToast(this,it.status)
 
             if (it.status == "ok") {
-                list.addAll(it.articles)
-              //  Global.showToast(this,resources.getString(R.string.loading))
 
-                if (it.totalResults > 0) {
                     Global.showSnackBar(view,resources.getString(R.string.loading))
                     viewModel.arrListData.addAll(it.articles)
-                    list.addAll(it.articles)
 
-                    //setup Recyclerview
-
-                    val recyclerView = binding.recyclerViewMain
+                      //setup Recyclerview
+                       setUpRecyclerViewData()
+                   /* val recyclerView = binding.recyclerViewMain
                     viewModel.updateNewsData()
                     recyclerView.layoutManager = LinearLayoutManager(this)
-                    recyclerView.adapter = HomeAdapter(list)
-                }
+                    recyclerView.adapter = HomeAdapter(viewModel.arrListData)*/
+
             }
 
         }
@@ -106,14 +101,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setUpRecyclerViewData() {
 
-        list = arrayListOf<Article>()
-
         val recyclerView = binding.recyclerViewMain
         viewModel.updateNewsData()
         val layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
-        binding.recyclerViewMain.isVisible = true
         recyclerView.layoutManager = layoutManager
-       recyclerView.adapter = HomeAdapter(list)
+       recyclerView.adapter = HomeAdapter(viewModel.arrListData)
 
     }
 
